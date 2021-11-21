@@ -10,6 +10,7 @@
 body {
 
     font-family: 'Eczar', serif;
+    background-color: #B5E2FA;
 
 }
 
@@ -33,7 +34,7 @@ body {
 }
 
 .cell {
-    border: 1px solid black;
+    border: 5px solid white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,6 +71,7 @@ body {
     background-color: black;
     transform: rotate(45deg);
     cursor: not-allowed;
+    background-color: #0FA3B1;
 }
 
 .cell.x::after {
@@ -85,24 +87,223 @@ body {
     background-color: black;
     border-radius: 50%;
     cursor: not-allowed;
+    background-color: #EDDEA4;
 
 }
 
 .cell.o::after {
     width: 18%;
     height: 18%;
-    background-color: white;
+    background-color: #B5E2FA;
+}
+
+.overlay-Start {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: block;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 1s ease-in-out;
+
+}
+
+.overlay-Start.out {
+
+    display:none;
+    opacity:0;
+    pointer-events: none;
+    transition: opacity 1s ease-in-out;
+
+}
+
+.startMenu {
+    position: absolute;
+    top: 6vh;
+    left: 2vw;
+    width: 25vw;
+    height: 45vh;
+    background-color: #0FA3B1;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 25px;
+}
+
+.ip1 {
+
+    border-radius: 25px;
+    height: 45px;
+    width: 300px;
+    margin-left: 25px;
+    border: none;
+    font-size: 22px;
+    padding-left: 25px;
+    font-family: 'Eczar', serif;
+    color: #F7A072;
+    background-color: #F9F7F3;
+}
+
+.ip1:focus {
+    outline: #B5E2FA solid 5px;
+}
+
+.lp1 {
+    font-size: 25px;
+    color: #F7A072;
+}
+
+
+.ip2 {
+
+    border-radius: 25px;
+    height: 45px;
+    width: 300px;
+    margin-left: 25px;
+    border: none;
+    font-size: 22px;
+    padding-left: 25px;
+    font-family: 'Eczar', serif;
+    color: #F7A072;
+    background-color: #F9F7F3;
+}
+
+.ip2:focus {
+    outline: #B5E2FA solid 5px;
+}
+
+.lp2 {
+    font-size: 25px;
+    color: #F7A072;
+}
+
+.bstart-game {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-game {
+
+    width: 50%;
+    height: 50%;
+    border-radius: 15px;
+    border: none;
+    background-color: #B5E2FA;
+    font-size: 25px;
+    font-family: 'Eczar', serif;
+    color: #F7A072;
+}
+.start-game:active {
+    background-color: #EDDEA4;
+    width: 45%;
+    height: 45%;
+    font-size: 22px;
+}
+
+.score-board {
+    position: absolute;
+    right: 5%;
+    top: 8%;
+    width: 25%;
+    height: 13%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35%;
+    color: #F7A072;
+    font-size: 30px;
+    background-color: #EDDEA4;
+    padding-top: 10px;
+}
+
+.score1 {
+    margin-left: 40%;
+}
+
+.score2 {
+    margin-left: 40%;
 }
 
 
 .winner-screen {
-    width: 100vw;
-    height: 100vh; 
-    transform: scale(0);
-    pointer-events: all;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
-.winner-text {
+.winner-screen.active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: block;
+    opacity: 1;
+    pointer-events: all;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.winner-text {
+    position: absolute;
+    top: 35%;
+    color: #F7A072;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.play-again {
+
+    background-color: #F7A072;
+    font-family: 'Eczar', serif;
+    width: 11%;
+    height: 7%;
+    border: 2px solid #EDDEA4;
+    margin-right: 25px;
+    font-size: 25px;
+    color: #EDDEA4;
+    cursor: pointer;
+
+}
+
+.play-again:active {
+
+    background-color: #F9F7F3;
+}
+
+.reset {
+
+    background-color: #F7A072;
+    font-family: 'Eczar', serif;
+    width: 11%;
+    height: 7%;
+    border: 2px solid #EDDEA4;
+    margin-left: 25px;
+    font-size: 25px;
+    color: #EDDEA4;
+    cursor: pointer;
+}
+
+.reset:active {
+
+    background-color: #F9F7F3;
 }

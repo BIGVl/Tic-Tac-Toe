@@ -20,6 +20,16 @@ body {
 
 }
 
+.declare-turn {
+    position: absolute;
+    top: 9%;
+    left: 50%;
+    transform: translate(-50%);
+    width: fit-content;
+    font-size: 2vw;
+    color: #F9F7F3;
+}
+
 .board {
     position: absolute;
     top:50%;

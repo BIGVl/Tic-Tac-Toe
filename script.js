@@ -3,6 +3,8 @@ const game = (()=>{
 //Important variables
     let x = 'x';
     let o = 'o';
+    let oTurn;
+    let declareTurn = document.querySelector('.declare-turn');
     const cells = document.querySelectorAll('.cell');
     const markers = ['','','','','','','','',''];
     let WINNING_COMBO = [
@@ -17,22 +19,29 @@ const game = (()=>{
     ]
 //Adds X or O to the clicked cell if the cell is empty
 function playGame () {
-    let oTurn = false;
     cells.forEach(cell=>{
         cell.addEventListener('click',(e)=>{
-            
+            if (cell.classList.contains('x') || cell.classList.contains('o') ) return;
              currentMarker = oTurn ? o : x;
-             if (cell.classList.contains('x') || cell.classList.contains('o') ) return;
             cell.classList.add(currentMarker);
-            console.log(oTurn);
             oTurn = !oTurn;
             markers.splice(e.target.dataset.index,1,currentMarker);
             checkWinner(currentMarker);
             endResetGame.endGame(false);
-        }, {once:true})
+            switchDeclareTurn();
+
+
+        })
     })  
 }
 playGame();
+
+function switchDeclareTurn () {
+    if (oTurn) declareTurn.textContent = `It's ${setGame.player2Score.textContent}'s turn`
+    else declareTurn.textContent = `It's ${setGame.player1Score.textContent}'s turn`
+
+}
+
 //Checks for the winner every time a player clicks a cell
 function checkWinner (currentMarker) {
 
@@ -44,9 +53,15 @@ function checkWinner (currentMarker) {
 };
 
     
-return {checkWinner, markers, cells, playGame}
+return {checkWinner, markers, cells, playGame, declareTurn}
     
 })();
+
+
+
+
+
+
 
 //Mdule that handles the start game menu and adds to the scoreboard or resets the scoreboard
 const setGame = (()=>{
@@ -62,6 +77,8 @@ const setGame = (()=>{
         player1Score.textContent = player1.value ;
         player2Score.textContent = player2.value ;
         overlayStart.classList.add('out');
+        game.declareTurn.textContent = `It's ${player1.value}'s turn`;
+
         
 
     })
@@ -69,6 +86,11 @@ const setGame = (()=>{
     
     return {player1Score, player2Score}
 })();
+
+
+
+
+
 
 
 //Module that will handle the end of the game

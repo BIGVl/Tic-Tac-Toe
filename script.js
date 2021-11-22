@@ -19,28 +19,30 @@ const game = (()=>{
     ]
 //Adds X or O to the clicked cell if the cell is empty
 function playGame () {
+    oTurn = false;
     cells.forEach(cell=>{
         cell.addEventListener('click',(e)=>{
             if (cell.classList.contains('x') || cell.classList.contains('o') ) return;
              currentMarker = oTurn ? o : x;
             cell.classList.add(currentMarker);
             oTurn = !oTurn;
+            switchDeclareTurn();
             markers.splice(e.target.dataset.index,1,currentMarker);
             checkWinner(currentMarker);
             endResetGame.endGame(false);
-            switchDeclareTurn();
-
 
         })
     })  
 }
 playGame();
 
+
 function switchDeclareTurn () {
-    if (oTurn) declareTurn.textContent = `It's ${setGame.player2Score.textContent}'s turn`
-    else declareTurn.textContent = `It's ${setGame.player1Score.textContent}'s turn`
+    if (oTurn) declareTurn.textContent = `It's ${setGame.player2Score.textContent}'s turn`;
+    else declareTurn.textContent = `It's ${setGame.player1Score.textContent}'s turn`;
 
 }
+
 
 //Checks for the winner every time a player clicks a cell
 function checkWinner (currentMarker) {
@@ -53,7 +55,7 @@ function checkWinner (currentMarker) {
 };
 
     
-return {checkWinner, markers, cells, playGame, declareTurn}
+return {checkWinner, markers, cells, playGame, declareTurn, oTurn, switchDeclareTurn}
     
 })();
 
@@ -72,19 +74,45 @@ const setGame = (()=>{
     const player2Score = document.querySelector('.player2-score');
     const startButton = document.querySelector('.start-game');
     const overlayStart = document.querySelector('.overlay-Start');
-
+    const p1over = document.querySelector('.p1over');
+    const p2over = document.querySelector('.p2over');
+//Makes sure that the players's are set properly then removes the start menu from the screen
     startButton.addEventListener('click', ()=>{
+        if (player1.value==='' || player2.value==='') return;
+        if (player1.value.length > 8 && player2.value.length > 8) {
+            p1over.classList.add('active');
+            p1over.textContent = 'Must be at most 8 characters';
+            p2over.classList.add('active');
+            p2over.textContent = 'Must be at most 8 characters';
+            return;
+        }
+        if (player1.value.length > 8) { 
+            p1over.classList.add('active');
+            p1over.textContent = 'Must be at most 8 characters';
+            p2over.textContent = '';
+            return;    
+        }
+        else if (player2.value.length > 8){
+            p2over.classList.add('active');
+            p2over.textContent = 'Must be at most 8 characters';
+            p1over.textContent = '';
+            return;
+        }
+        else {
+            p1over.classList.remove('active');
+            p2over.classList.remove('active');
+            p1over.textContent = '';
+            p2over.textContent = '';
+        }
         player1Score.textContent = player1.value ;
         player2Score.textContent = player2.value ;
         overlayStart.classList.add('out');
-        game.declareTurn.textContent = `It's ${player1.value}'s turn`;
-
+        game.declareTurn.textContent = `It's ${setGame.player1Score.textContent}'s turn`;
         
-
     })
 
     
-    return {player1Score, player2Score}
+    return {player1, player2, player1Score, player2Score, overlayStart}
 })();
 
 
@@ -145,11 +173,39 @@ playAgain.addEventListener('click',()=>{
         cell.classList.remove('o');
     })
     game.playGame();
+    game.switchDeclareTurn();
 });
 
-
+// Resets everything to their initial status 
 reset.addEventListener('click', ()=>{
 
+    winnerScreen.classList.remove('active');
+
+    setGame.overlayStart.classList.remove('out');
+    score1track = 0;
+    scorep1.textContent = score1track;
+    score2track = 0;
+    scorep2.textContent = score2track;
+
+    setGame.player1.value = '';
+    setGame.player2.value = '';
+    setGame.player1Score.textContent = 'Player 1';
+    setGame.player1Score.textContent = 'Player 2';
+
+    game.declareTurn.textContent = ``;
+
+
+    for (let i=0;i<=game.markers.length;i++) {
+        if (game.markers[i]==='x' || game.markers[i]==='o') {
+            game.markers.splice(i,1,'');
+        }
+     }
+     game.cells.forEach(cell =>{
+         cell.classList.remove('x');
+         cell.classList.remove('o');
+     })
+
+     game.playGame();
 
 })
 

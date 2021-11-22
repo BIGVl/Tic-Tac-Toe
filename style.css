@@ -167,6 +167,17 @@ body {
     color: #F7A072;
 }
 
+.p1over.active {
+
+    color:red;
+    margin-left:30%;
+}
+
+.p2over.active {
+    
+    color:red;
+    margin-left:30%;
+}
 
 .ip2 {
 
@@ -209,6 +220,7 @@ body {
     font-size: 25px;
     font-family: 'Eczar', serif;
     color: #F7A072;
+    cursor: pointer;
 }
 .start-game:active {
     background-color: #EDDEA4;
